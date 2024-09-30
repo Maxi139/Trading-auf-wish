@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trading</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <p id="moneyDisplay">Money: <span id="money">0.00$</span></p>
+      <h1>Trading</h1>
+      <h2 id="worth">1.00$</h2>
+      <button id="buy" onclick="buy()">Buy</button>
+      <button id="sell" onclick="sell()">Sell</button>
+
+      <div class="Stats">
+        <p>Money invested: <span id="moneyInvest">0.00$</span></p>
+        <p>Invested at price: <span id="price">0.00$</span></p>
+        <p>Profit: <span id="profit">0.00$</span></p>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
