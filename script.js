@@ -32,15 +32,16 @@ function True70False30() {
 function changeValue(howOften = 1) {
   for (let i = 0; i < howOften; i++) {
     if (Rising) {
-      currentValue *= Math.random() * 1.2;
+      // Increase the value but limit it to a maximum of 10
+      currentValue += Math.random() * 1.2;
       Rising = True70False30();
     } else {
+      // Decrease the value but ensure it doesn't go below 0.1
       currentValue -= Math.random();
+      if (currentValue < 0.1) {
+        currentValue = 0.1; // Minimum value is 0.1
+      }
       Rising = !True70False30();
-    }
-    // Ensure currentValue doesn't go negative
-    if (currentValue < 0) {
-      currentValue = 0.1;
     }
   }
   UpdateDisplay();
