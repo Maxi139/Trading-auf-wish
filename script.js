@@ -55,18 +55,18 @@ function save() {
 }
 
 function True70False30() {
-  return Math.random() < 0.5;
+  return Math.random() < 0.9;
 }
 
 function changeValue(howOften = 1) {
   for (let i = 0; i < howOften; i++) {
     if (Rising) {
       // Increase the value but limit it to a maximum of 10
-      currentValue += Math.random() * 1.2;
+      currentValue += Math.random() * 0.11;
       Rising = True70False30();
     } else {
       // Decrease the value but ensure it doesn't go below 0.1
-      currentValue -= Math.random();
+      currentValue -= Math.random() * 0.1;
       if (currentValue < 0.1) {
         currentValue = 0.1; // Minimum value is 0.1
       }
@@ -151,24 +151,25 @@ document.addEventListener("DOMContentLoaded", function () {
       labels: Array.from(Array(100).keys()), // Example: use index as labels
       datasets: [
         {
-          label: "Value",
+          label: "Current Value",
           data: valueHistory,
           fill: false,
-          borderColor: "#EEEEEE",
-          tension: 0,
+          borderColor: "#FFF",
+          tension: 0.1,
+          pointRadius: 0, // Remove the dots from the line
+          pointHoverRadius: 0, // Remove hover effect on dots
         },
       ],
     },
     options: {
-      responsive: false,
+      responsive: true,
       scales: {
         y: {
           beginAtZero: false,
         },
       },
-      // Disable animation here
       animation: {
-        duration: 1, // Set duration to 0 to disable animation
+        duration: 0, // Disable animation
       },
     },
   });
@@ -178,4 +179,4 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // Automatically change the value every 350ms
-setInterval(changeValue, 350);
+setInterval(changeValue, 100);
