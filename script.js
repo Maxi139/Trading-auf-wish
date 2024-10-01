@@ -15,6 +15,35 @@ var Profit = 0;
 var canBuy = true;
 var hasPlayed = false;
 
+// Define global variables for chart and data
+var chart;
+var valueHistory = [];
+
+// Function to update the chart with new data
+function updateChart() {
+  if (!chart) {
+    // If chart is not initialized, return early
+    return;
+  }
+
+  // Push current value to history
+  valueHistory.push(currentValue);
+
+  // Ensure history length does not exceed 100 (for example)
+  if (valueHistory.length > 100) {
+    valueHistory.shift(); // Remove oldest value
+  }
+
+  // Update chart data
+  chart.data.datasets[0].data = valueHistory;
+
+  // Update chart without animation
+  chart.update({
+    duration: 0, // Disable the update animation
+    lazy: false, // Update immediately
+  });
+}
+
 function save() {
   localStorage.setItem("money", money);
   localStorage.setItem("currentValue", currentValue);
@@ -51,6 +80,9 @@ function UpdateDisplay() {
   valueDisplay.innerHTML =
     (currentValue ? currentValue.toFixed(2) : "0.00") + "$";
   moneyDisplay.innerHTML = (money ? money.toFixed(2) : "0.00") + "$";
+  valueDisplay.innerHTML =
+    (currentValue ? currentValue.toFixed(2) : "0.00") + "$";
+  moneyDisplay.innerHTML = (money ? money.toFixed(2) : "0.00") + "$";
 
   if (!canBuy) {
     investedAtPriceDisplay.innerHTML =
@@ -70,9 +102,9 @@ function UpdateDisplay() {
     investedMoneyDisplay.innerHTML = "0.00$";
     ProfitDisplay.innerHTML = "0.00$";
   }
+  updateChart();
   save();
 }
-
 function buy() {
   if (!canBuy) {
     return;
@@ -109,6 +141,41 @@ function reset() {
   localStorage.clear();
   location.reload();
 }
+
+// Initialize the chart when the document is fully loaded
+document.addEventListener("DOMContentLoaded", function () {
+  var ctx = document.getElementById("valueChart").getContext("2d");
+  chart = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: Array.from(Array(100).keys()), // Example: use index as labels
+      datasets: [
+        {
+          label: "Value",
+          data: valueHistory,
+          fill: false,
+          borderColor: "#EEEEEE",
+          tension: 0,
+        },
+      ],
+    },
+    options: {
+      responsive: false,
+      scales: {
+        y: {
+          beginAtZero: false,
+        },
+      },
+      // Disable animation here
+      animation: {
+        duration: 1, // Set duration to 0 to disable animation
+      },
+    },
+  });
+
+  // Once the chart is ready, manually update it the first time
+  updateChart();
+});
 
 // Automatically change the value every 350ms
 setInterval(changeValue, 350);

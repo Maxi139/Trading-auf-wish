@@ -4,12 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Trading</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div id="app">
-      <p id="moneyDisplay">Money: <span id="money">0.00$</span></p>
       <h1>Trading</h1>
+      <p id="moneyDisplay">Money: <span id="money">0.00$</span></p>
+      <canvas id="valueChart" width="500" height="200"></canvas>
       <h2 id="worth">1.00$</h2>
       <button id="buy" onclick="buy()">Buy</button>
       <button id="sell" onclick="sell()">Sell</button>
