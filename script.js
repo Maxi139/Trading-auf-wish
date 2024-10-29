@@ -63,14 +63,14 @@ function changeValue(howOften = 1) {
     if (Rising) {
       // Increase the value but limit it to a maximum of 10
       currentValue += Math.random() * 0.11;
-      Rising = true;
+      Rising = false;
     } else {
       // Decrease the value but ensure it doesn't go below 0.1
       currentValue -= Math.random() * 0.1;
       if (currentValue < 0.1) {
         currentValue = 0.1; // Minimum value is 0.1
       }
-      Rising = true;
+      Rising = false;
     }
   }
   UpdateDisplay();
