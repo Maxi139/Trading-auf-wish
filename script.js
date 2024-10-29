@@ -142,6 +142,10 @@ function reset() {
   location.reload();
 }
 
+function addMoney(moneyToAdd){
+  money += moneyToAdd;
+}
+
 // Initialize the chart when the document is fully loaded
 document.addEventListener("DOMContentLoaded", function () {
   var ctx = document.getElementById("valueChart").getContext("2d");
