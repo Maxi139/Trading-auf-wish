@@ -55,7 +55,7 @@ function save() {
 }
 
 function True70False30() {
-  return Math.random() < 0.5;
+  return Math.random() < 0.7;
 }
 
 function changeValue(howOften = 1) {
@@ -169,7 +169,7 @@ document.addEventListener("DOMContentLoaded", function () {
       responsive: true,
       scales: {
         y: {
-          beginAtZero: false,
+          beginAtZero: true,
         },
       },
       animation: {
