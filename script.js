@@ -55,7 +55,7 @@ function save() {
 }
 
 function True70False30() {
-  return Math.random() < 0.9;
+  return Math.random() < 0.5;
 }
 
 function changeValue(howOften = 1) {
