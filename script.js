@@ -6,6 +6,8 @@ const investedMoneyDisplay = document.querySelector("#moneyInvest");
 const ProfitDisplay = document.querySelector("#profit");
 const moneyDisplay = document.querySelector("#money");
 
+const settingsDisplay = document.querySelector("#settings");
+
 var currentValue = 1;
 var Rising = true;
 var money = 100;
@@ -130,6 +132,12 @@ function reset() {
 function openSettings(){
   //Add more later
   console.log("open settings");
+  if(settingsDisplay.style.visibility === "visible"){
+    settingsDisplay.style.visibility = "hidden";
+  }
+  else{
+    settingsDisplay.style.visibility = "visible";
+  }
 }
 
 function sell() {

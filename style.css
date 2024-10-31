@@ -32,8 +32,6 @@ body {
   height: 100%;
   width: 100%;
   overflow: hidden;
-
-  display: none;
 }
 
 #moneyDisplay {
@@ -80,6 +78,8 @@ svg{
 }
 
 #settings{
+  background-color: var(--secondColor);
+  visibility: hidden;
   position: absolute;
   top: 0;
   left: 0;
@@ -92,6 +92,10 @@ svg{
   text-align: left;
 
   font-size: larger;
+}
+
+#settings .themes{
+  margin-top: -5vh;
 }
 
 #settings .themes .list{
