@@ -87,23 +87,52 @@ svg{
   width: 100%;
 }
 
-#settings .themes h2{
+#settings h2{
   margin-left: 3vh;
   text-align: left;
+
+  font-size: larger;
 }
 
 #settings .themes .list{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-
   height: 28vh;
+  width: 100%;
 
   margin-left: 3vh;
+}
+
+#settings .themes .list .row{
+  display: flex;
+  justify-content: left;
+  flex-direction: row;
 }
 
 #settings .themes .list img{
   height: 13vh;
   margin: 1vh;
+}
+
+#settings .Gameplay *{
+  text-align: left;
+  margin-left: 3vh;
+}
+
+#settings .Gameplay p{
+  font-size: 13px;
+  margin: 0 0 0 3vh;
+}
+
+#settings .Gameplay button{
+  background: none;
+  color: var(--firstColor);
+  font-size: 13px;
+  border: none;
+  margin: 0;
+  font-weight: bold;
+  height: 0;
+}
+
+#settings .Gameplay h3{
+  font-size: large;
+  margin: 0 0 0 3vh;
 }
