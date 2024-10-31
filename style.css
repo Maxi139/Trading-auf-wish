@@ -1,7 +1,19 @@
+:root{
+  --fontFamily: 'Roboto Mono', monospace;
+  --firstColor: #fff;
+  --secondColor: #000;
+}
+
+
+* {
+  text-align: center;
+  padding: 0;
+}
+
 body {
-  background-color: black;
-  color: white;
-  font-family: monospace;
+  background-color: var(--secondColor);
+  color: var(--firstColor);
+  font-family: var(--fontFamily);
   font-size: 20px;
 
   display: flex;
@@ -16,38 +28,82 @@ body {
   padding: 0;
 }
 
-* {
-  text-align: center;
+#app{
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+
+  display: none;
 }
 
 #moneyDisplay {
-  position: absolute;
-  top: 1vh;
-  left: 10vw;
+  margin-left: 5vw;
   z-index: 2;
 
   text-align: left;
 }
 
 .Stats {
-  margin: 7vh;
+  margin-top: 5vh;
+  margin-left: 5vw;
 }
 
 .Stats p {
   text-align: left;
+  line-height: 1vh;
 }
 
 button {
   text-align: center;
   font-size: 20px;
-  width: 20vw;
-  font-family: monospace;
-  background-color: white;
-  color: black;
+  width: 30vw;
+  font-family: var(--fontFamily);
+  background-color: var(--firstColor);
+  color: var(--secondColor);
   padding: 10px;
   border-radius: 10px;
 }
 
 span {
   font-weight: bold;
+}
+
+
+svg{
+  height: 5vh;
+  width: 5vh;
+
+  stroke: var(--firstColor);
+  position: absolute;
+  top: 5vh;
+  right: 5vh;
+}
+
+#settings{
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+#settings .themes h2{
+  margin-left: 3vh;
+  text-align: left;
+}
+
+#settings .themes .list{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  height: 28vh;
+
+  margin-left: 3vh;
+}
+
+#settings .themes .list img{
+  height: 13vh;
+  margin: 1vh;
 }

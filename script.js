@@ -15,6 +15,11 @@ var Profit = 0;
 var canBuy = true;
 var hasPlayed = false;
 
+//themes
+var fontFamily = "'Roboto Mono', monospace;";
+var firstColor =  "#fff";
+var secondColor = "#000";
+
 // Define global variables for chart and data
 var chart;
 var valueHistory = [];
@@ -30,7 +35,7 @@ function updateChart() {
   valueHistory.push(currentValue);
 
   // Ensure history length does not exceed 100 (for example)
-  if (valueHistory.length > 100) {
+  if (valueHistory.length > 170) {
     valueHistory.shift(); // Remove oldest value
   }
 
@@ -117,6 +122,16 @@ function buy() {
   hasPlayed = true;
 }
 
+function reset() {
+  localStorage.clear();
+  location.reload();
+}
+
+function openSettings(){
+  //Add more later
+  console.log("open settings");
+}
+
 function sell() {
   Profit = (currentValue / investedAtPrice) * investedMoney;
   money = Profit;
@@ -137,14 +152,7 @@ if (localStorage.getItem("hasPlayed")) {
   console.log("Error");
 }
 
-function reset() {
-  localStorage.clear();
-  location.reload();
-}
 
-function addMoney(moneyToAdd){
-  money += moneyToAdd;
-}
 
 // Initialize the chart when the document is fully loaded
 document.addEventListener("DOMContentLoaded", function () {
@@ -152,28 +160,34 @@ document.addEventListener("DOMContentLoaded", function () {
   chart = new Chart(ctx, {
     type: "line",
     data: {
-      labels: Array.from(Array(100).keys()), // Example: use index as labels
+      labels: Array.from(Array(250).keys()), // Example: use index as labels
       datasets: [
         {
-          label: "Current Value",
+          label: "lol",
           data: valueHistory,
           fill: false,
           borderColor: "#FFF",
-          tension: 0.1,
+          tension: 0.3,
           pointRadius: 0, // Remove the dots from the line
           pointHoverRadius: 0, // Remove hover effect on dots
         },
       ],
     },
     options: {
-      responsive: true,
+      responsive: false,
       scales: {
         y: {
-          beginAtZero: true,
+          beginAtZero: false,
         },
       },
       animation: {
         duration: 0, // Disable animation
+      },
+      plugins: {
+        legend: {
+          display: false, // Hide the legend
+        },
+        
       },
     },
   });
