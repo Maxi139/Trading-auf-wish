@@ -5,6 +5,7 @@ const investedAtPriceDisplay = document.querySelector("#price");
 const investedMoneyDisplay = document.querySelector("#moneyInvest");
 const ProfitDisplay = document.querySelector("#profit");
 const moneyDisplay = document.querySelector("#money");
+const cheaterSign = document.getElementById("cheaterBanner");
 
 const messageItem = document.querySelector("#message");
 
@@ -303,3 +304,27 @@ function showMessage(message) {
     messageItem.style.animation = "none";
   }, 2000);
 }
+
+
+(function detectConsoleOpen() {
+  let consoleOpened = false;
+
+  function checkForConsole() {
+      const startTime = performance.now();
+
+      // `debugger;` will pause the execution if DevTools is open
+      debugger;
+      
+      if (performance.now() - startTime > 100) {
+          if (!consoleOpened) {
+              consoleOpened = true;
+              cheaterSign.style.visibility = "visible";
+          }
+      } else {
+          consoleOpened = false;
+      }
+  }
+
+  // Run the check every 1000ms (1 second)
+  setInterval(checkForConsole, 1000);
+})();
