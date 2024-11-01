@@ -114,6 +114,13 @@ svg{
 #settings .themes .list img{
   height: 13vh;
   margin: 1vh;
+
+  border: var(--firstColor) 1px solid;
+  border-radius: 15px;
+}
+
+#settings .themes .list img#firstTheme{
+  border: var(--firstColor) 3px solid;
 }
 
 #settings .Gameplay *{
@@ -175,4 +182,17 @@ svg{
     opacity: 0;
     transform: translateY(-50px);
   }
+}
+
+#cheaterBanner{
+  visibility: hidden;
+  position: absolute;
+  top: 2%;
+  left: -18%;
+  line-height: 5vh;
+  height: 5vh;
+  width: 60%;
+  background: linear-gradient(rgb(255, 88, 88), rgb(255, 141, 141));
+  transform: rotate(-45deg);
+  box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.5);
 }

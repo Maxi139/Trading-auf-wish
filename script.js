@@ -164,6 +164,49 @@ function sell() {
 }
 
 function changeTheme(theme){
+  if(theme == 0){
+    document.getElementById("firstTheme").style.border = "3px solid var(--firstColor)";
+    document.getElementById("secondTheme").style.border = "1px solid var(--firstColor)";
+    document.getElementById("thirdTheme").style.border = "1px solid var(--firstColor)";
+    document.getElementById("fourthTheme").style.border = "1px solid var(--firstColor)";
+    document.getElementById("fifthTheme").style.border = "1px solid var(--firstColor)";
+    document.getElementById("sixthTheme").style.border = "1px solid var(--firstColor)";
+  }else if(theme == 1){
+    document.getElementById("firstTheme").style.border = "1px solid var(--firstColor)";
+    document.getElementById("secondTheme").style.border = "3px solid var(--firstColor)";
+    document.getElementById("thirdTheme").style.border = "1px solid var(--firstColor)";
+    document.getElementById("fourthTheme").style.border = "1px solid var(--firstColor)";
+    document.getElementById("fifthTheme").style.border = "1px solid var(--firstColor)";
+    document.getElementById("sixthTheme").style.border = "1px solid var(--firstColor)";
+  }else if(theme == 2){
+    document.getElementById("firstTheme").style.border = "1px solid var(--firstColor)";
+    document.getElementById("secondTheme").style.border = "1px solid var(--firstColor)";
+    document.getElementById("thirdTheme").style.border = "3px solid var(--firstColor)";
+    document.getElementById("fourthTheme").style.border = "1px solid var(--firstColor)";
+    document.getElementById("fifthTheme").style.border = "1px solid var(--firstColor)";
+    document.getElementById("sixthTheme").style.border = "1px solid var(--firstColor)";
+  }else if(theme == 3){
+    document.getElementById("firstTheme").style.border = "1px solid var(--firstColor)";
+    document.getElementById("secondTheme").style.border = "1px solid var(--firstColor)";
+    document.getElementById("thirdTheme").style.border = "1px solid var(--firstColor)";
+    document.getElementById("fourthTheme").style.border = "3px solid var(--firstColor)";
+    document.getElementById("fifthTheme").style.border = "1px solid var(--firstColor)";
+    document.getElementById("sixthTheme").style.border = "1px solid var(--firstColor)";
+  }else if(theme == 4){
+    document.getElementById("firstTheme").style.border = "1px solid var(--firstColor)";
+    document.getElementById("secondTheme").style.border = "1px solid var(--firstColor)";
+    document.getElementById("thirdTheme").style.border = "1px solid var(--firstColor)";
+    document.getElementById("fourthTheme").style.border = "1px solid var(--firstColor)";
+    document.getElementById("fifthTheme").style.border = "3px solid var(--firstColor)";
+    document.getElementById("sixthTheme").style.border = "1px solid var(--firstColor)";
+  }else if(theme == 5){
+    document.getElementById("firstTheme").style.border = "1px solid var(--firstColor)";
+    document.getElementById("secondTheme").style.border = "1px solid var(--firstColor)";
+    document.getElementById("thirdTheme").style.border = "1px solid var(--firstColor)";
+    document.getElementById("fourthTheme").style.border = "1px solid var(--firstColor)";
+    document.getElementById("fifthTheme").style.border = "1px solid var(--firstColor)";
+    document.getElementById("sixthTheme").style.border = "3px solid var(--firstColor)";
+  }
   Theme = theme;
   console.log(themes[theme]);
   firstColor = themes[theme].split(";;")[0];
