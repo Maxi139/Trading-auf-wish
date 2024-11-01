@@ -6,6 +6,10 @@ const investedMoneyDisplay = document.querySelector("#moneyInvest");
 const ProfitDisplay = document.querySelector("#profit");
 const moneyDisplay = document.querySelector("#money");
 
+const messageItem = document.querySelector("#message");
+
+var Theme;
+
 const settingsDisplay = document.querySelector("#settings");
 
 const themes = ["#fff;;#000;;'Roboto Mono', monospace", "#F2F4CB;;#110B11;;'Montserrat', sans-serif", "#EDEBD7;;#6E675F;;'Merriweather', serif", "#000;;#fff;;'Roboto Mono', monospace", "#110B11;;#F2F4CB;;'Montserrat', sans-serif", "#6E675F;;#EDEBD7;;'Merriweather', serif"];
@@ -61,6 +65,8 @@ function save() {
   localStorage.setItem("investedAtPrice", investedAtPrice);
   localStorage.setItem("Profit", Profit);
   localStorage.setItem("canBuy", canBuy);
+  localStorage.setItem("Theme", Theme);
+  localStorage.setItem("valueHistory", JSON.stringify(valueHistory));
 }
 
 function True70False30() {
@@ -78,8 +84,10 @@ function changeValue(howOften = 1) {
       currentValue -= Math.random() * 0.11;
       if (currentValue < 0.1) {
         currentValue = 0.1; // Minimum value is 0.1
+        Rising = true;
+      }else{
+        Rising = !True70False30();
       }
-      Rising = !True70False30();
     }
   }
   UpdateDisplay();
@@ -102,9 +110,9 @@ function UpdateDisplay() {
     Profit =
       (currentValue / investedAtPrice) * investedMoney - investedMoney || 0;
     if (Profit >= 0) {
-      ProfitDisplay.innerHTML = " " + Profit.toFixed(2) + "$";
+      ProfitDisplay.innerHTML = " " + Profit.toFixed(2) + "$ / " + ((Profit / investedMoney) * 100).toFixed(2) + "%";
     } else {
-      ProfitDisplay.innerHTML = Profit.toFixed(2) + "$";
+      ProfitDisplay.innerHTML = Profit.toFixed(2) + "$ / " + ((Profit / investedMoney) * 100).toFixed(2) + "%";
     }
   } else {
     investedAtPriceDisplay.innerHTML = "0.00$";
@@ -124,6 +132,7 @@ function buy() {
   money = 0;
   UpdateDisplay();
   hasPlayed = true;
+  showMessage("Bought at price: <span>" + investedAtPrice.toFixed(2) + "$</span> for: <span>" + investedMoney.toFixed(2) + "$</span>");
 }
 
 function reset() {
@@ -143,26 +152,19 @@ function openSettings(){
 }
 
 function sell() {
-  Profit = (currentValue / investedAtPrice) * investedMoney;
-  money = Profit;
-  UpdateDisplay();
-  canBuy = true;
-}
-
-if (localStorage.getItem("hasPlayed")) {
-  money = parseFloat(localStorage.getItem("money")) || 100;
-  currentValue = parseFloat(localStorage.getItem("currentValue")) || 1;
-  investedMoney = parseFloat(localStorage.getItem("investedMoney")) || 0;
-  investedAtPrice = parseFloat(localStorage.getItem("investedAtPrice")) || 0;
-  Profit = parseFloat(localStorage.getItem("Profit")) || 0;
-  canBuy = localStorage.getItem("canBuy") === "true"; // Convert to boolean
-  UpdateDisplay();
-  changeValue(50);
-} else {
-  console.log("Error");
+  if (!canBuy) {
+    Profit = (currentValue / investedAtPrice) * investedMoney;
+    money = Profit;
+    UpdateDisplay();
+    canBuy = true;
+    showMessage("Sold at price: <span>" + currentValue.toFixed(2) + "$</span> for: <span>" + money.toFixed(2) + "$</span>");
+  }else{
+    return;
+  }
 }
 
 function changeTheme(theme){
+  Theme = theme;
   console.log(themes[theme]);
   firstColor = themes[theme].split(";;")[0];
   secondColor = themes[theme].split(";;")[1];
@@ -170,6 +172,9 @@ function changeTheme(theme){
   document.documentElement.style.setProperty('--fontFamily', fontFamily);
   document.documentElement.style.setProperty('--firstColor', firstColor);
   document.documentElement.style.setProperty('--secondColor', secondColor);
+  chart.data.datasets[0].borderColor = firstColor;
+  chart.options.scales.x.ticks = {color: firstColor};
+  chart.options.scales.y.ticks = {color: firstColor};
   chart.update();
   save();
 }
@@ -187,7 +192,7 @@ document.addEventListener("DOMContentLoaded", function () {
         {
           data: valueHistory,
           fill: false,
-          borderColor: firstColor,
+          borderColor: "#fff",
           tension: 0.3,
           pointRadius: 0, // Remove the dots from the line
           pointHoverRadius: 0, // Remove hover effect on dots
@@ -200,12 +205,12 @@ document.addEventListener("DOMContentLoaded", function () {
         x: {
           grid: {
             display: false
-          }
+          },
         },
         y: {
           grid: {
             display: false
-          }
+          },
         }
       },
       animation: {
@@ -229,3 +234,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Automatically change the value every 350ms
 setInterval(changeValue, 100);
+
+if (localStorage.getItem("hasPlayed")) {
+  Theme = parseFloat(localStorage.getItem("Theme")) || 0;
+  money = parseFloat(localStorage.getItem("money")) || 100;
+  currentValue = parseFloat(localStorage.getItem("currentValue")) || 1;
+  investedMoney = parseFloat(localStorage.getItem("investedMoney")) || 0;
+  investedAtPrice = parseFloat(localStorage.getItem("investedAtPrice")) || 0;
+  Profit = parseFloat(localStorage.getItem("Profit")) || 0;
+  canBuy = localStorage.getItem("canBuy") === "true"; // Convert to boolean
+  valueHistory = JSON.parse(localStorage.getItem("valueHistory")) || [];
+  UpdateDisplay();
+  updateChart();
+  changeValue(50);
+} else {
+  console.log("Error");
+}
+
+function showMessage(message) {
+  messageItem.style.display = "block";
+  messageItem.innerHTML = message;
+  messageItem.style.animation = "moveFadeIn 2s forwards";
+  setTimeout(function () {
+    messageItem.style.display = "none";
+    messageItem.style.animation = "none";
+  }, 2000);
+}
