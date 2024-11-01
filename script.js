@@ -8,6 +8,8 @@ const moneyDisplay = document.querySelector("#money");
 
 const settingsDisplay = document.querySelector("#settings");
 
+const themes = ["#fff;;#000;;'Roboto Mono', monospace", "#F2F4CB;;#110B11;;'Montserrat', sans-serif", "#EDEBD7;;#6E675F;;'Merriweather', serif", "#000;;#fff;;'Roboto Mono', monospace", "#110B11;;#F2F4CB;;'Montserrat', sans-serif", "#6E675F;;#EDEBD7;;'Merriweather', serif"];
+
 var currentValue = 1;
 var Rising = true;
 var money = 100;
@@ -62,7 +64,7 @@ function save() {
 }
 
 function True70False30() {
-  return Math.random() < 0.7;
+  return Math.random() < 0.5;
 }
 
 function changeValue(howOften = 1) {
@@ -73,7 +75,7 @@ function changeValue(howOften = 1) {
       Rising = True70False30();
     } else {
       // Decrease the value but ensure it doesn't go below 0.1
-      currentValue -= Math.random() * 0.1;
+      currentValue -= Math.random() * 0.11;
       if (currentValue < 0.1) {
         currentValue = 0.1; // Minimum value is 0.1
       }
@@ -160,6 +162,18 @@ if (localStorage.getItem("hasPlayed")) {
   console.log("Error");
 }
 
+function changeTheme(theme){
+  console.log(themes[theme]);
+  firstColor = themes[theme].split(";;")[0];
+  secondColor = themes[theme].split(";;")[1];
+  fontFamily = themes[theme].split(";;")[2];
+  document.documentElement.style.setProperty('--fontFamily', fontFamily);
+  document.documentElement.style.setProperty('--firstColor', firstColor);
+  document.documentElement.style.setProperty('--secondColor', secondColor);
+  chart.update();
+  save();
+}
+
 
 
 // Initialize the chart when the document is fully loaded
@@ -171,10 +185,9 @@ document.addEventListener("DOMContentLoaded", function () {
       labels: Array.from(Array(250).keys()), // Example: use index as labels
       datasets: [
         {
-          label: "lol",
           data: valueHistory,
           fill: false,
-          borderColor: "#FFF",
+          borderColor: firstColor,
           tension: 0.3,
           pointRadius: 0, // Remove the dots from the line
           pointHoverRadius: 0, // Remove hover effect on dots
@@ -184,9 +197,16 @@ document.addEventListener("DOMContentLoaded", function () {
     options: {
       responsive: false,
       scales: {
-        y: {
-          beginAtZero: false,
+        x: {
+          grid: {
+            display: false
+          }
         },
+        y: {
+          grid: {
+            display: false
+          }
+        }
       },
       animation: {
         duration: 0, // Disable animation
@@ -194,6 +214,9 @@ document.addEventListener("DOMContentLoaded", function () {
       plugins: {
         legend: {
           display: false, // Hide the legend
+        },
+        tooltip: {
+          enabled: false, // Disable tooltips
         },
         
       },
