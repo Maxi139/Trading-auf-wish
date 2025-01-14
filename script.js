@@ -13,6 +13,9 @@ var Theme;
 
 const settingsDisplay = document.querySelector("#settings");
 
+const AllTrades = [];
+const percentageOffGoodTrades = [];
+
 const themes = ["#fff;;#000;;'Roboto Mono', monospace", "#F2F4CB;;#110B11;;'Montserrat', sans-serif", "#EDEBD7;;#6E675F;;'Merriweather', serif", "#000;;#fff;;'Roboto Mono', monospace", "#110B11;;#F2F4CB;;'Montserrat', sans-serif", "#6E675F;;#EDEBD7;;'Merriweather', serif"];
 
 var currentValue = 1;
@@ -59,6 +62,7 @@ function updateChart() {
 }
 
 function save() {
+  localStorage.setItem("Trades", AllTrades);
   localStorage.setItem("money", money);
   localStorage.setItem("currentValue", currentValue);
   localStorage.setItem("hasPlayed", hasPlayed);
@@ -159,10 +163,15 @@ function sell() {
     UpdateDisplay();
     canBuy = true;
     showMessage("Sold at price: <span>" + currentValue.toFixed(2) + "$</span> for: <span>" + money.toFixed(2) + "$</span>");
+    reloadTradeRate(Profit);
   }else{
     return;
   }
 }
+
+function reloadTradeRate(Profit){
+  AllTrades.append(Profit);
+};
 
 function changeTheme(theme){
   if(theme == 0){
